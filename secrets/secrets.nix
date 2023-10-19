@@ -6,5 +6,5 @@ let
   hosts = [ r2d2 ];
 in
 {
-  "do-cert-creds.age".publicKeys = users ++ hosts;
+  "cf-cert-creds.age".publicKeys = users ++ hosts;
 }

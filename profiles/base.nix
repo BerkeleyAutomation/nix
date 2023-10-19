@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   security.sudo.wheelNeedsPassword = false;
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";

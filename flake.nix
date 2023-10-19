@@ -14,7 +14,7 @@
       supportedSystems = [ "x86_64-linux" ];
       hostDefaults.modules = [
         ./profiles/base.nix
-        agenix.nixosModule
+        agenix.nixosModules.default
       ];
 
       hosts.r2d2.modules = [ ./hosts/r2d2 ];
