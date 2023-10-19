@@ -17,10 +17,8 @@
     };
   };
 
-  virtualisation.oci-containers = {
-    backend = "docker";
-
-    containers.kanidm-server = {
+  virtualisation.oci-containers.containers = {
+    kanidm-server = {
       ports = [ "443:8443" "636:3636" ];
       image = "kanidm/server:latest";
       volumes = [
