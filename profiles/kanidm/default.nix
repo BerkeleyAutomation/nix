@@ -1,9 +1,15 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   environment.etc = {
     "kanidm/server.toml".source = ./server.toml;
+    "kanidm/config".source = ./config;
   };
+
+  environment.systemPackages = [
+    # kanidm client
+    pkgs.kanidm
+  ];
 
   age.secrets.cf-cert-creds.file = ../../secrets/cf-cert-creds.age;
 

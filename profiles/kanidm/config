@@ -1,0 +1,3 @@
+uri = "https://idm.berkeleyautomation.net"
+verify_ca = true
+verify_hostnames = true
