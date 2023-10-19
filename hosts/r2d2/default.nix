@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./networking.nix
     ../profiles/docker.nix
   ];
 
