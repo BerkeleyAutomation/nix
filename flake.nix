@@ -18,5 +18,6 @@
       ];
 
       hosts.r2d2.modules = [ ./hosts/r2d2 ];
+      hosts.nixos-test.modules = [ ./hosts/nixos-test ];
     };
 }
