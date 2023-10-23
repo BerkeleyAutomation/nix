@@ -10,8 +10,9 @@
   outputs = inputs@{ self, flake-utils-plus, agenix, ... }:
     flake-utils-plus.lib.mkFlake {
       inherit self inputs;
-
+      channels.nixpkgs.config = { allowUnfree = true; };
       supportedSystems = [ "x86_64-linux" ];
+
       hostDefaults.modules = [
         ./profiles/base.nix
         agenix.nixosModules.default
