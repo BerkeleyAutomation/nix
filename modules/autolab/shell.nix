@@ -9,10 +9,9 @@ in
     enable = mkEnableOption "Enable shell configuration";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     environment = {
       enableAllTerminfo = true;
-      etc."p10k.zsh".source = ./shell/p10k.zsh;
       systemPackages = with pkgs; [
         zsh
         zsh-powerlevel10k
@@ -26,7 +25,7 @@ in
       '';
       interactiveShellInit = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        source /etc/p10k.zsh
+        source ${./shell/p10k.zsh}
       '';
     };
 

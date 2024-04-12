@@ -10,7 +10,7 @@
   };
 
   boot = {
-    tmp.useTmpfs = true;
+    tmp.cleanOnBoot = true;
     loader = {
       systemd-boot.enable = lib.mkDefault true;
       efi.canTouchEfiVariables = true;
@@ -19,6 +19,12 @@
 
   services = {
     openssh.enable = true;
+    envfs.enable = true;
+  };
+
+  programs = {
+    nix-ld.enable = true;
+    tmux.enable = true;
   };
 
   security.sudo.wheelNeedsPassword = false;

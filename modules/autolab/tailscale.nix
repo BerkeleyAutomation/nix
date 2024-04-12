@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "Enable Tailscale configuration";
   };
 
-  config = mkIf (cfg.enable) {
+  config = mkIf cfg.enable {
     # Generated 2024-04-11 by Oliver Ni, expires 2024-07-10
     age.secrets.tailscale-auth-key.file = ../../secrets/tailscale-auth-key.age;
 
