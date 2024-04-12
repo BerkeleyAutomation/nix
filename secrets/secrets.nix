@@ -7,4 +7,5 @@ let
 in
 {
   "cf-cert-creds.age".publicKeys = users ++ hosts;
+  "tailscale-auth-key.age".publicKeys = users ++ hosts;
 }

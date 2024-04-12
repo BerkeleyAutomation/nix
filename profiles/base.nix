@@ -1,19 +1,28 @@
 { lib, pkgs, ... }:
 
 {
-  boot.loader = {
-    systemd-boot.enable = lib.mkDefault true;
-    efi.canTouchEfiVariables = true;
+  nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
+
+  autolab = {
+    locale.enable = lib.mkDefault true;
+    shell.enable = lib.mkDefault true;
+    tailscale.enable = lib.mkDefault true;
   };
 
-  boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
+  boot = {
+    tmp.useTmpfs = true;
+    loader = {
+      systemd-boot.enable = lib.mkDefault true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
+  services = {
+    openssh.enable = true;
+  };
+
   security.sudo.wheelNeedsPassword = false;
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
-  services.openssh.enable = true;
 
   users.users.oliver = {
     isNormalUser = true;
