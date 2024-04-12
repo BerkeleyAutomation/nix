@@ -4,6 +4,7 @@
   nix.settings.extra-experimental-features = [ "nix-command" "flakes" ];
 
   autolab = {
+    auth.enable = lib.mkDefault true;
     locale.enable = lib.mkDefault true;
     shell.enable = lib.mkDefault true;
     tailscale.enable = lib.mkDefault true;

@@ -3,8 +3,13 @@
 {
   imports = [
     ../hardware/hetzner-38345231.nix
-    ../profiles/idm.nix
   ];
+
+  autolab.auth.server = {
+    enable = true;
+    domain = "idm.berkeleyautomation.net";
+    origin = "https://idm.berkeleyautomation.net";
+  };
 
   boot.loader = {
     systemd-boot.enable = false;
