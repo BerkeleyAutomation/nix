@@ -2,23 +2,77 @@
   description = "NixOS Configuration for AUTOLab";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
-    flake-utils-plus.url = github:gytis-ivaskevicius/flake-utils-plus/v1.4.0;
-    agenix.url = "github:ryantm/agenix/0.14.0";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, flake-utils-plus, agenix, ... }:
-    flake-utils-plus.lib.mkFlake {
-      inherit self inputs;
-      channels.nixpkgs.config = { allowUnfree = true; };
-      supportedSystems = [ "x86_64-linux" ];
+  outputs = { self, nixpkgs, flake-utils, agenix }:
+    let
+      # ========================
+      # NixOS Host Configuration
+      # ========================
 
-      hostDefaults.modules = [
-        ./profiles/base.nix
+      # Put modules common to all hosts here.
+      commonModules = [
         agenix.nixosModules.default
+        ./profiles/base.nix
       ];
 
-      hosts.r2d2.modules = [ ./hosts/r2d2 ];
-      hosts.nixos-test.modules = [ ./hosts/nixos-test ];
-    };
+      # Put modules for specific hosts here.
+      hosts = {
+        r2d2 = [ ./hosts/r2d2.nix ];
+        nixos-test = [ ./hosts/nixos-test.nix ];
+      };
+
+      # =====================
+      # nixpkgs Configuration
+      # =====================
+
+      overlays = [
+        agenix.overlays.default
+      ];
+
+      # =====================
+      # Colmena Configuration
+      # =====================
+
+      pkgs-x86_64-linux = import nixpkgs {
+        inherit overlays;
+        system = "x86_64-linux";
+        config = { allowUnfree = true; };
+      };
+
+      colmena = builtins.mapAttrs
+        (host: modules: {
+          imports = commonModules ++ modules;
+          deployment.buildOnTarget = true;
+          deployment.targetUser = "oliver";
+          deployment.allowLocalDeployment = true;
+        })
+        hosts;
+
+      colmenaOutputs = {
+        colmena = colmena // {
+          meta = { nixpkgs = pkgs-x86_64-linux; };
+        };
+      };
+
+      # =======================
+      # Dev Shell Configuration
+      # =======================
+
+      devShellOutputs = flake-utils.lib.eachDefaultSystem (system:
+        let pkgs = import nixpkgs { inherit system overlays; }; in {
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.colmena
+              pkgs.agenix
+            ];
+          };
+        }
+      );
+    in
+    colmenaOutputs // devShellOutputs;
 }
