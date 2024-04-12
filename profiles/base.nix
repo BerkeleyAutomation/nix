@@ -19,8 +19,20 @@
   };
 
   services = {
-    openssh.enable = true;
-    envfs.enable = true;
+    openssh = {
+      enable = true;
+      settings.X11Forwarding = true;
+    };
+
+    envfs = {
+      enable = true;
+      extraFallbackPathCommands = ''
+        ln -s ${pkgs.bash}/bin/bash $out/bash
+        ln -s ${pkgs.zsh}/bin/zsh $out/zsh
+        ln -s ${pkgs.fish}/bin/fish $out/fish
+        ln -s ${pkgs.xonsh}/bin/xonsh $out/xonsh
+      '';
+    };
   };
 
   programs = {

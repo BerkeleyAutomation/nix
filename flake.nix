@@ -17,6 +17,7 @@
       # Put modules common to all hosts here.
       commonModules = [
         agenix.nixosModules.default
+        ./modules/autolab/auth.nix
         ./modules/autolab/locale.nix
         ./modules/autolab/shell.nix
         ./modules/autolab/tailscale.nix
