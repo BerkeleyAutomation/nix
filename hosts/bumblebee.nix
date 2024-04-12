@@ -11,7 +11,7 @@
     grub.devices = [ "/dev/sda" ];
   };
 
-  networking.hostName = "r2d2";
+  networking.hostName = "bumblebee";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

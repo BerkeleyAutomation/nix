@@ -22,7 +22,7 @@
 
       # Put modules for specific hosts here.
       hosts = {
-        r2d2 = [ ./hosts/r2d2.nix ];
+        bumblebee = [ ./hosts/bumblebee.nix ];
         nixos-test = [ ./hosts/nixos-test.nix ];
       };
 
