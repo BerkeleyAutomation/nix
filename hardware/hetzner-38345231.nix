@@ -18,11 +18,6 @@
     fsType = "ext4";
   };
 
-  fileSystems."/efi" = {
-    device = "systemd-1";
-    fsType = "autofs";
-  };
-
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

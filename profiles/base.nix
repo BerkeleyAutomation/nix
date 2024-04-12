@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
+  boot.loader = {
+    systemd-boot.enable = lib.mkDefault true;
+    efi.canTouchEfiVariables = true;
+  };
+
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   security.sudo.wheelNeedsPassword = false;

@@ -5,6 +5,10 @@
     ../hardware/aws-i-0d919cd960dd07159.nix
   ];
 
+  boot.loader = {
+    systemd-boot.enable = false;
+  };
+
   networking.hostName = "nixos-test";
 
   # This value determines the NixOS release from which the default
