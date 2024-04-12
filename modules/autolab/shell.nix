@@ -29,6 +29,8 @@ in
       '';
     };
 
+    services.kanidm.unixSettings.default_shell = "${pkgs.zsh}/bin/zsh";
+
     users = {
       defaultUserShell = pkgs.zsh;
       motd = builtins.readFile ./shell/motd;
