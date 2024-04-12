@@ -22,13 +22,7 @@ in
       enable = true;
       openFirewall = true;
       authKeyFile = config.age.secrets.tailscale-auth-key.path;
-      extraUpFlags = [
-        "--accept-dns"
-        "--accept-routes"
-        "--advertise-connector"
-        "--advertise-exit-node"
-        "--ssh"
-      ];
+      extraUpFlags = [ "--accept-dns" "--accept-routes" ];
     };
   };
 }
