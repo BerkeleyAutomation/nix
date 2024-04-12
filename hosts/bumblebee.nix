@@ -3,6 +3,7 @@
 {
   imports = [
     ../hardware/hetzner-38345231.nix
+    ../profiles/idm.nix
   ];
 
   boot.loader = {
