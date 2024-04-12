@@ -30,6 +30,9 @@ in
       '';
     };
 
-    users.defaultUserShell = pkgs.zsh;
+    users = {
+      defaultUserShell = pkgs.zsh;
+      motd = builtins.readFile ./shell/motd;
+    };
   };
 }
